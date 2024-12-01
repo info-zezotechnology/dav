@@ -19,17 +19,17 @@ class Service extends \Sabre\Xml\Service
      * For instance, this list may contain an entry `{DAV:}propfind` that would
      * be mapped to Sabre\DAV\Xml\Request\PropFind
      */
-    public $elementMap = [
-        '{DAV:}multistatus' => 'Sabre\\DAV\\Xml\\Response\\MultiStatus',
-        '{DAV:}response' => 'Sabre\\DAV\\Xml\\Element\\Response',
+    public array $elementMap = [
+        '{DAV:}multistatus' => \Sabre\DAV\Xml\Response\MultiStatus::class,
+        '{DAV:}response' => \Sabre\DAV\Xml\Element\Response::class,
 
         // Requests
-        '{DAV:}propfind' => 'Sabre\\DAV\\Xml\\Request\\PropFind',
-        '{DAV:}propertyupdate' => 'Sabre\\DAV\\Xml\\Request\\PropPatch',
-        '{DAV:}mkcol' => 'Sabre\\DAV\\Xml\\Request\\MkCol',
+        '{DAV:}propfind' => \Sabre\DAV\Xml\Request\PropFind::class,
+        '{DAV:}propertyupdate' => \Sabre\DAV\Xml\Request\PropPatch::class,
+        '{DAV:}mkcol' => \Sabre\DAV\Xml\Request\MkCol::class,
 
         // Properties
-        '{DAV:}resourcetype' => 'Sabre\\DAV\\Xml\\Property\\ResourceType',
+        '{DAV:}resourcetype' => \Sabre\DAV\Xml\Property\ResourceType::class,
     ];
 
     /**
@@ -37,10 +37,8 @@ class Service extends \Sabre\Xml\Service
      *
      * If you are defining your own custom namespace, add it here to reduce
      * bandwidth and improve legibility of xml bodies.
-     *
-     * @var array
      */
-    public $namespaceMap = [
+    public array $namespaceMap = [
         'DAV:' => 'd',
         'http://sabredav.org/ns' => 's',
     ];

@@ -182,8 +182,8 @@ SQL
                 'id' => [(int) $row['calendarid'], (int) $row['id']],
                 'uri' => $row['uri'],
                 'principaluri' => $row['principaluri'],
-                '{'.CalDAV\Plugin::NS_CALENDARSERVER.'}getctag' => 'http://sabre.io/ns/sync/'.($row['synctoken'] ? $row['synctoken'] : '0'),
-                '{http://sabredav.org/ns}sync-token' => $row['synctoken'] ? $row['synctoken'] : '0',
+                '{'.CalDAV\Plugin::NS_CALENDARSERVER.'}getctag' => 'http://sabre.io/ns/sync/'.($row['synctoken'] ?: '0'),
+                '{http://sabredav.org/ns}sync-token' => $row['synctoken'] ?: '0',
                 '{'.CalDAV\Plugin::NS_CALDAV.'}supported-calendar-component-set' => new CalDAV\Xml\Property\SupportedCalendarComponentSet($components),
                 '{'.CalDAV\Plugin::NS_CALDAV.'}schedule-calendar-transp' => new CalDAV\Xml\Property\ScheduleCalendarTransp($row['transparent'] ? 'transparent' : 'opaque'),
                 'share-resource-uri' => '/ns/share/'.$row['calendarid'],
@@ -196,7 +196,7 @@ SQL
                 //$stmt2 = $this->pdo->prepare('SELECT principaluri FROM ' . $this->calendarInstancesTableName . ' WHERE access = 1 AND id = ?');
                 //$stmt2->execute([$row['id']]);
 
-                // read-only is for backwards compatbility. Might go away in
+                // read-only is for backwards compatibility. Might go away in
                 // the future.
                 $calendar['read-only'] = \Sabre\DAV\Sharing\Plugin::ACCESS_READ === (int) $row['access'];
             }
@@ -730,7 +730,7 @@ SQL
      *
      * This default may well be good enough for personal use, and calendars
      * that aren't very large. But if you anticipate high usage, big calendars
-     * or high loads, you are strongly adviced to optimize certain paths.
+     * or high loads, you are strongly advised to optimize certain paths.
      *
      * The best way to do so is override this method and to optimize
      * specifically for 'common filters'.

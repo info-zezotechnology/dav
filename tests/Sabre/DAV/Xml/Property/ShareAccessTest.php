@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Sabre\DAV\Xml\Property;
 
 use Sabre\DAV\Sharing\Plugin;
-use Sabre\DAV\Xml\XmlTest;
+use Sabre\DAV\Xml\AbstractXmlTestCase;
 
-class ShareAccessTest extends XmlTest
+class ShareAccessTest extends AbstractXmlTestCase
 {
     public function testSerialize()
     {
@@ -100,7 +100,7 @@ XML;
 
     public function testDeserializeInvalid()
     {
-        $this->expectException('Sabre\DAV\Exception\BadRequest');
+        $this->expectException(\Sabre\DAV\Exception\BadRequest::class);
         $input = <<<XML
 <?xml version="1.0"?>
 <d:root xmlns:d="DAV:">

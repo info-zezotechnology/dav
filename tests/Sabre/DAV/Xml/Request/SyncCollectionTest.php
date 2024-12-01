@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Sabre\DAV\Xml\Request;
 
-use Sabre\DAV\Xml\XmlTest;
+use Sabre\DAV\Xml\AbstractXmlTestCase;
 
-class SyncCollectionTest extends XmlTest
+class SyncCollectionTest extends AbstractXmlTestCase
 {
     public function testDeserializeProp()
     {
@@ -20,7 +20,7 @@ class SyncCollectionTest extends XmlTest
 </d:sync-collection>
 ';
 
-        $result = $this->parse($xml, ['{DAV:}sync-collection' => 'Sabre\\DAV\\Xml\\Request\\SyncCollectionReport']);
+        $result = $this->parse($xml, ['{DAV:}sync-collection' => \Sabre\DAV\Xml\Request\SyncCollectionReport::class]);
 
         $elem = new SyncCollectionReport();
         $elem->syncLevel = 1;
@@ -42,7 +42,7 @@ class SyncCollectionTest extends XmlTest
 </d:sync-collection>
 ';
 
-        $result = $this->parse($xml, ['{DAV:}sync-collection' => 'Sabre\\DAV\\Xml\\Request\\SyncCollectionReport']);
+        $result = $this->parse($xml, ['{DAV:}sync-collection' => \Sabre\DAV\Xml\Request\SyncCollectionReport::class]);
 
         $elem = new SyncCollectionReport();
         $elem->syncLevel = 1;
@@ -64,7 +64,7 @@ class SyncCollectionTest extends XmlTest
 </d:sync-collection>
 ';
 
-        $result = $this->parse($xml, ['{DAV:}sync-collection' => 'Sabre\\DAV\\Xml\\Request\\SyncCollectionReport']);
+        $result = $this->parse($xml, ['{DAV:}sync-collection' => \Sabre\DAV\Xml\Request\SyncCollectionReport::class]);
 
         $elem = new SyncCollectionReport();
         $elem->syncLevel = \Sabre\DAV\Server::DEPTH_INFINITY;
@@ -75,13 +75,13 @@ class SyncCollectionTest extends XmlTest
 
     public function testDeserializeMissingElem()
     {
-        $this->expectException('Sabre\DAV\Exception\BadRequest');
+        $this->expectException(\Sabre\DAV\Exception\BadRequest::class);
         $xml = '<?xml version="1.0"?>
 <d:sync-collection xmlns:d="DAV:">
     <d:sync-token />
 </d:sync-collection>
 ';
 
-        $result = $this->parse($xml, ['{DAV:}sync-collection' => 'Sabre\\DAV\\Xml\\Request\\SyncCollectionReport']);
+        $result = $this->parse($xml, ['{DAV:}sync-collection' => \Sabre\DAV\Xml\Request\SyncCollectionReport::class]);
     }
 }

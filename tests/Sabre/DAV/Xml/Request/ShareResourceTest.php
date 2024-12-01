@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Sabre\DAV\Xml\Request;
 
 use Sabre\DAV\Sharing\Plugin;
+use Sabre\DAV\Xml\AbstractXmlTestCase;
 use Sabre\DAV\Xml\Element\Sharee;
-use Sabre\DAV\Xml\XmlTest;
 
-class ShareResourceTest extends XmlTest
+class ShareResourceTest extends AbstractXmlTestCase
 {
     public function testDeserialize()
     {
@@ -41,11 +41,11 @@ class ShareResourceTest extends XmlTest
 XML;
 
         $result = $this->parse($xml, [
-            '{DAV:}share-resource' => 'Sabre\\DAV\\Xml\\Request\\ShareResource',
+            '{DAV:}share-resource' => \Sabre\DAV\Xml\Request\ShareResource::class,
         ]);
 
         self::assertInstanceOf(
-            'Sabre\\DAV\\Xml\\Request\\ShareResource',
+            \Sabre\DAV\Xml\Request\ShareResource::class,
             $result['value']
         );
 

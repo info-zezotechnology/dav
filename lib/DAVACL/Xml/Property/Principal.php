@@ -99,7 +99,7 @@ class Principal extends DAV\Xml\Property\Href
      *
      * If you are opening new elements, you must also close them again.
      */
-    public function xmlSerialize(Writer $writer)
+    public function xmlSerialize(Writer $writer): void
     {
         switch ($this->type) {
             case self::UNAUTHENTICATED:
@@ -149,7 +149,7 @@ class Principal extends DAV\Xml\Property\Href
     /**
      * The deserialize method is called during xml parsing.
      *
-     * This method is called staticly, this is because in theory this method
+     * This method is called statically, this is because in theory this method
      * may be used as a type of constructor, or factory method.
      *
      * Often you want to return an instance of the current class, but you are

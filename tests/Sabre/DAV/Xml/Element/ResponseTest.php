@@ -6,7 +6,7 @@ namespace Sabre\DAV\Xml\Element;
 
 use Sabre\DAV;
 
-class ResponseTest extends DAV\Xml\XmlTest
+class ResponseTest extends DAV\Xml\AbstractXmlTestCase
 {
     public function testSimple()
     {
@@ -189,7 +189,7 @@ class ResponseTest extends DAV\Xml\XmlTest
 ';
 
         $result = $this->parse($xml, [
-            '{DAV:}response' => 'Sabre\DAV\Xml\Element\Response',
+            '{DAV:}response' => \Sabre\DAV\Xml\Element\Response::class,
             '{DAV:}foo' => function ($reader) {
                 $reader->next();
 
@@ -241,8 +241,8 @@ class ResponseTest extends DAV\Xml\XmlTest
      * @depends testSerialize
      *
      * The WebDAV spec _requires_ at least one DAV:propstat to appear for
-     * every DAV:response. In some circumstances however, there are no
-     * properties to encode.
+     * every DAV:response if there is no status.
+     * In some circumstances however, there are no properties to encode.
      *
      * In those cases we MUST specify at least one DAV:propstat anyway, with
      * no properties.
@@ -269,6 +269,65 @@ class ResponseTest extends DAV\Xml\XmlTest
     }
 
     /**
+     * @depends testSerialize
+     *
+     * The WebDAV spec _requires_ at least one DAV:propstat _OR_ a status to appear for
+     * every DAV:response.
+     * So if there are no properties but a status, the response should contain that status.
+     */
+    public function testSerializeNoPropertiesButStatus()
+    {
+        $innerProps = [];
+
+        $property = new Response('uri', $innerProps, 200);
+        $xml = $this->write(['{DAV:}root' => ['{DAV:}response' => $property]]);
+
+        self::assertXmlStringEqualsXmlString(
+'<?xml version="1.0"?>
+<d:root xmlns:d="DAV:">
+  <d:response>
+      <d:href>/uri</d:href>
+      <d:status>HTTP/1.1 200 OK</d:status>
+  </d:response>
+</d:root>
+', $xml);
+    }
+
+    /**
+     * @depends testSerialize
+     *
+     * The WebDAV standard only allow EITHER propstat(s) OR a status within the response.
+     * Make sure that if there are propstat(s), no status element is added.
+     */
+    public function testSerializePropertiesAndStatus()
+    {
+        $innerProps = [
+            200 => [
+                '{DAV:}displayname' => 'my file',
+            ],
+        ];
+
+        $property = new Response('uri', $innerProps, 200);
+
+        $xml = $this->write(['{DAV:}root' => ['{DAV:}response' => $property]]);
+
+        self::assertXmlStringEqualsXmlString(
+'<?xml version="1.0"?>
+<d:root xmlns:d="DAV:">
+  <d:response>
+    <d:href>/uri</d:href>
+    <d:propstat>
+      <d:prop>
+        <d:displayname>my file</d:displayname>
+      </d:prop>
+      <d:status>HTTP/1.1 200 OK</d:status>
+    </d:propstat>
+  </d:response>
+</d:root>
+', $xml);
+    }
+
+    /**
      * In the case of {DAV:}prop, a deserializer should never get called, if
      * the property element is empty.
      */
@@ -287,7 +346,7 @@ class ResponseTest extends DAV\Xml\XmlTest
 ';
 
         $result = $this->parse($xml, [
-            '{DAV:}response' => 'Sabre\DAV\Xml\Element\Response',
+            '{DAV:}response' => \Sabre\DAV\Xml\Element\Response::class,
             '{DAV:}foo' => function ($reader) {
                 throw new \LogicException('This should never happen');
             },

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Sabre\DAV\Xml\Element;
 
+use Sabre\DAV\Xml\AbstractXmlTestCase;
 use Sabre\DAV\Xml\Property\Complex;
 use Sabre\DAV\Xml\Property\Href;
-use Sabre\DAV\Xml\XmlTest;
 
-class PropTest extends XmlTest
+class PropTest extends AbstractXmlTestCase
 {
     public function testDeserializeSimple()
     {
@@ -69,7 +69,7 @@ XML;
         ];
 
         $elementMap = [
-            '{DAV:}foo' => 'Sabre\DAV\Xml\Property\Href',
+            '{DAV:}foo' => \Sabre\DAV\Xml\Property\Href::class,
         ];
 
         self::assertDecodeProp($input, $expected, $elementMap);
@@ -139,7 +139,7 @@ XML;
 
     public function assertDecodeProp($input, array $expected, array $elementMap = [])
     {
-        $elementMap['{DAV:}root'] = 'Sabre\DAV\Xml\Element\Prop';
+        $elementMap['{DAV:}root'] = \Sabre\DAV\Xml\Element\Prop::class;
 
         $result = $this->parse($input, $elementMap);
         self::assertIsArray($result);

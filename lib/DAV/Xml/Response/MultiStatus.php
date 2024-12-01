@@ -81,7 +81,7 @@ class MultiStatus implements Element
      * Important note 2: If you are writing any new elements, you are also
      * responsible for closing them.
      */
-    public function xmlSerialize(Writer $writer)
+    public function xmlSerialize(Writer $writer): void
     {
         foreach ($this->getResponses() as $response) {
             $writer->writeElement('{DAV:}response', $response);
@@ -114,7 +114,7 @@ class MultiStatus implements Element
     public static function xmlDeserialize(Reader $reader)
     {
         $elementMap = $reader->elementMap;
-        $elementMap['{DAV:}prop'] = 'Sabre\\DAV\\Xml\\Element\\Prop';
+        $elementMap['{DAV:}prop'] = \Sabre\DAV\Xml\Element\Prop::class;
         $elements = $reader->parseInnerTree($elementMap);
 
         $responses = [];

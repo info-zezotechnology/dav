@@ -14,7 +14,7 @@ use Sabre\VObject;
  * @author Evert Pot (http://evertpot.com/)
  * @license http://sabre.io/license/ Modified BSD License
  */
-class Issue203Test extends \Sabre\DAVServerTest
+class Issue203Test extends \Sabre\AbstractDAVServerTestCase
 {
     protected $setupCalDAV = true;
 
@@ -113,7 +113,7 @@ END:VCALENDAR
             ],
         ];
 
-        // try to match agains $expectedEvents array
+        // try to match against $expectedEvents array
         foreach ($expectedEvents as $expectedEvent) {
             $matching = false;
 

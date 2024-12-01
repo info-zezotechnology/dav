@@ -46,10 +46,10 @@ class PropPatch implements Element
      *
      * If you are opening new elements, you must also close them again.
      */
-    public function xmlSerialize(Writer $writer)
+    public function xmlSerialize(Writer $writer): void
     {
         foreach ($this->properties as $propertyName => $propertyValue) {
-            if (is_null($propertyValue)) {
+            if (null === $propertyValue) {
                 $writer->startElement('{DAV:}remove');
                 $writer->write(['{DAV:}prop' => [$propertyName => $propertyValue]]);
                 $writer->endElement();
@@ -86,9 +86,9 @@ class PropPatch implements Element
         $self = new self();
 
         $elementMap = $reader->elementMap;
-        $elementMap['{DAV:}prop'] = 'Sabre\DAV\Xml\Element\Prop';
-        $elementMap['{DAV:}set'] = 'Sabre\Xml\Element\KeyValue';
-        $elementMap['{DAV:}remove'] = 'Sabre\Xml\Element\KeyValue';
+        $elementMap['{DAV:}prop'] = \Sabre\DAV\Xml\Element\Prop::class;
+        $elementMap['{DAV:}set'] = \Sabre\Xml\Element\KeyValue::class;
+        $elementMap['{DAV:}remove'] = \Sabre\Xml\Element\KeyValue::class;
 
         $elems = $reader->parseInnerTree($elementMap);
 

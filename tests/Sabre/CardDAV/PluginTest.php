@@ -6,13 +6,13 @@ namespace Sabre\CardDAV;
 
 use Sabre\DAV;
 
-class PluginTest extends AbstractPluginTest
+class PluginTest extends AbstractPluginTestCase
 {
     public function testConstruct()
     {
-        self::assertEquals('{'.Plugin::NS_CARDDAV.'}addressbook', $this->server->resourceTypeMapping['Sabre\\CardDAV\\IAddressBook']);
+        self::assertEquals('{'.Plugin::NS_CARDDAV.'}addressbook', $this->server->resourceTypeMapping[\Sabre\CardDAV\IAddressBook::class]);
 
-        self::assertTrue(in_array('addressbook', $this->plugin->getFeatures()));
+        self::assertContains('addressbook', $this->plugin->getFeatures());
         self::assertEquals('carddav', $this->plugin->getPluginInfo()['name']);
     }
 
@@ -34,7 +34,7 @@ class PluginTest extends AbstractPluginTest
     {
         $result = $this->server->getProperties('principals/user1', ['{'.Plugin::NS_CARDDAV.'}addressbook-home-set']);
 
-        self::assertEquals(1, count($result));
+        self::assertCount(1, $result);
         self::assertTrue(isset($result['{'.Plugin::NS_CARDDAV.'}addressbook-home-set']));
         self::assertEquals('addressbooks/user1/', $result['{'.Plugin::NS_CARDDAV.'}addressbook-home-set']->getHref());
     }
@@ -43,7 +43,7 @@ class PluginTest extends AbstractPluginTest
     {
         $result = $this->server->getProperties('principals/user1', ['{'.Plugin::NS_CARDDAV.'}directory-gateway']);
 
-        self::assertEquals(1, count($result));
+        self::assertCount(1, $result);
         self::assertTrue(isset($result['{'.Plugin::NS_CARDDAV.'}directory-gateway']));
         self::assertEquals(['directory'], $result['{'.Plugin::NS_CARDDAV.'}directory-gateway']->getHrefs());
     }
@@ -73,11 +73,11 @@ class PluginTest extends AbstractPluginTest
         $this->plugin->propFindEarly($propFind, $node);
 
         self::assertInstanceOf(
-            'Sabre\\CardDAV\\Xml\\Property\\SupportedAddressData',
+            \Sabre\CardDAV\Xml\Property\SupportedAddressData::class,
             $propFind->get($ns.'supported-address-data')
         );
         self::assertInstanceOf(
-            'Sabre\\CardDAV\\Xml\\Property\\SupportedCollationSet',
+            \Sabre\CardDAV\Xml\Property\SupportedCollationSet::class,
             $propFind->get($ns.'supported-collation-set')
         );
     }

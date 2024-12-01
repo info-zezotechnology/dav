@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Sabre\DAV\Locks\Backend;
 
+use PHPUnit\Framework\TestCase;
 use Sabre\DAV;
 
-abstract class AbstractTest extends \PHPUnit\Framework\TestCase
+abstract class AbstractTestCase extends TestCase
 {
     /**
      * @abstract
@@ -18,7 +19,7 @@ abstract class AbstractTest extends \PHPUnit\Framework\TestCase
     public function testSetup()
     {
         $backend = $this->getBackend();
-        self::assertInstanceOf('Sabre\\DAV\\Locks\\Backend\\AbstractBackend', $backend);
+        self::assertInstanceOf(\Sabre\DAV\Locks\Backend\AbstractBackend::class, $backend);
     }
 
     /**

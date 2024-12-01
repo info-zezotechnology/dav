@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Sabre\DAV\Property;
+namespace Sabre\DAV\Xml\Property;
 
 use Sabre\DAV;
 use Sabre\HTTP;
 
-class SupportedReportSetTest extends DAV\AbstractServer
+class SupportedReportSetTest extends DAV\AbstractServerTestCase
 {
     public function sendPROPFIND($body)
     {

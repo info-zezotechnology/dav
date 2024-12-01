@@ -6,10 +6,10 @@ namespace Sabre\DAV;
 
 use Sabre\HTTP;
 
-class ServerPluginTest extends AbstractServer
+class ServerPluginTest extends AbstractServerTestCase
 {
     /**
-     * @var Sabre\DAV\TestPlugin
+     * @var TestPlugin
      */
     protected $testPlugin;
 
@@ -29,7 +29,7 @@ class ServerPluginTest extends AbstractServer
         self::assertEquals([], $p->getHTTPMethods(''));
         self::assertEquals(
             [
-                'name' => 'Sabre\DAV\ServerPluginMock',
+                'name' => \Sabre\DAV\ServerPluginMock::class,
                 'description' => null,
                 'link' => null,
             ], $p->getPluginInfo()

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Sabre\CalDAV;
 
+use Sabre\AbstractDAVServerTestCase;
 use Sabre\DAV;
 use Sabre\DAV\Xml\Element\Sharee;
-use Sabre\DAVServerTest;
 use Sabre\HTTP;
 
-class SharingPluginTest extends DAVServerTest
+class SharingPluginTest extends AbstractDAVServerTestCase
 {
     protected $setupCalDAV = true;
     protected $setupCalDAVSharing = true;
@@ -45,7 +45,7 @@ class SharingPluginTest extends DAVServerTest
 
     public function testSimple()
     {
-        self::assertInstanceOf('Sabre\\CalDAV\\SharingPlugin', $this->server->getPlugin('caldav-sharing'));
+        self::assertInstanceOf(\Sabre\CalDAV\SharingPlugin::class, $this->server->getPlugin('caldav-sharing'));
         self::assertEquals(
             'caldav-sharing',
             $this->caldavSharingPlugin->getPluginInfo()['name']
@@ -75,8 +75,8 @@ class SharingPluginTest extends DAVServerTest
             '{'.Plugin::NS_CALENDARSERVER.'}allowed-sharing-modes',
         ]);
 
-        self::assertInstanceOf('Sabre\\CalDAV\\Xml\\Property\\Invite', $props['{'.Plugin::NS_CALENDARSERVER.'}invite']);
-        self::assertInstanceOf('Sabre\\CalDAV\\Xml\\Property\\AllowedSharingModes', $props['{'.Plugin::NS_CALENDARSERVER.'}allowed-sharing-modes']);
+        self::assertInstanceOf(\Sabre\CalDAV\Xml\Property\Invite::class, $props['{'.Plugin::NS_CALENDARSERVER.'}invite']);
+        self::assertInstanceOf(\Sabre\CalDAV\Xml\Property\AllowedSharingModes::class, $props['{'.Plugin::NS_CALENDARSERVER.'}allowed-sharing-modes']);
     }
 
     public function testBeforeGetSharedCalendar()
@@ -86,7 +86,7 @@ class SharingPluginTest extends DAVServerTest
             '{'.Plugin::NS_CALENDARSERVER.'}invite',
         ]);
 
-        self::assertInstanceOf('Sabre\\CalDAV\\Xml\\Property\\Invite', $props['{'.Plugin::NS_CALENDARSERVER.'}invite']);
+        self::assertInstanceOf(\Sabre\CalDAV\Xml\Property\Invite::class, $props['{'.Plugin::NS_CALENDARSERVER.'}invite']);
         //self::assertInstanceOf('Sabre\\DAV\\Xml\\Property\\Href', $props['{' . Plugin::NS_CALENDARSERVER . '}shared-url']);
     }
 

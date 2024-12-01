@@ -100,6 +100,30 @@ class TreeTest extends \PHPUnit\Framework\TestCase
         self::assertArrayHasKey('multi/1', $result);
         self::assertArrayHasKey('multi/2', $result);
     }
+
+    public function testGetSubTreeNode()
+    {
+        $tree = new TreeMock();
+        $this->assertInstanceOf(INode::class, $tree->getNodeForPath('subtree/sub/1'));
+        $this->assertInstanceOf(INode::class, $tree->getNodeForPath('subtree/2/3'));
+    }
+
+    public function testGetNodeCacheParent()
+    {
+        $tree = new TreeMock();
+
+        /** @var TreeDirectoryTester $root */
+        $root = $tree->getNodeForPath('');
+        $root->createDirectory('new');
+        $parent = $tree->getNodeForPath('new');
+        $parent->createDirectory('child');
+
+        // make it so we can't create the 'new' folder again
+        unset($root->newDirectories['new']);
+
+        // we should still be able to query child items from the 'new' folder because it is cached in the tree
+        $this->assertInstanceOf(INode::class, $tree->getNodeForPath('new/child'));
+    }
 }
 
 class TreeMock extends Tree
@@ -125,6 +149,12 @@ class TreeMock extends Tree
                 ]),
                 new TreeDirectoryTester('1', [
                     new TreeDirectoryTester('2'),
+                ]),
+                new NodeByPathTester('subtree', [
+                    new TreeFileTester('sub/1'),
+                    new TreeDirectoryTester('2', [
+                        new TreeFileTester('3'),
+                    ]),
                 ]),
             ])
         );
@@ -174,6 +204,18 @@ class TreeDirectoryTester extends SimpleCollection
     {
         $this->isRenamed = true;
         $this->name = $name;
+    }
+}
+
+class NodeByPathTester extends SimpleCollection implements INodeByPath
+{
+    public function getNodeForPath($path)
+    {
+        if (isset($this->children[$path])) {
+            return $this->children[$path];
+        } else {
+            return null;
+        }
     }
 }
 

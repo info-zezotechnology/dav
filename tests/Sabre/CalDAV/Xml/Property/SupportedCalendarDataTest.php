@@ -7,12 +7,12 @@ namespace Sabre\CalDAV\Xml\Property;
 use Sabre\CalDAV;
 use Sabre\DAV;
 
-class SupportedCalendarDataTest extends DAV\Xml\XmlTest
+class SupportedCalendarDataTest extends DAV\Xml\AbstractXmlTestCase
 {
     public function testSimple()
     {
         $sccs = new SupportedCalendarData();
-        self::assertInstanceOf('Sabre\CalDAV\Xml\Property\SupportedCalendarData', $sccs);
+        self::assertInstanceOf(\Sabre\CalDAV\Xml\Property\SupportedCalendarData::class, $sccs);
     }
 
     /**

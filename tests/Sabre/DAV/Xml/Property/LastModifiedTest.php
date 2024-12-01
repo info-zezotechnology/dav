@@ -6,9 +6,9 @@ namespace Sabre\DAV\Xml\Property;
 
 use DateTime;
 use DateTimeZone;
-use Sabre\DAV\Xml\XmlTest;
+use Sabre\DAV\Xml\AbstractXmlTestCase;
 
-class LastModifiedTest extends XmlTest
+class LastModifiedTest extends AbstractXmlTestCase
 {
     public function testSerializeDateTime()
     {
@@ -46,7 +46,7 @@ XML;
 <d:getlastmodified xmlns:d="DAV:">Tue, 24 Mar 2015 18:47:00 GMT</d:getlastmodified>
 XML;
 
-        $elementMap = ['{DAV:}getlastmodified' => 'Sabre\DAV\Xml\Property\GetLastModified'];
+        $elementMap = ['{DAV:}getlastmodified' => \Sabre\DAV\Xml\Property\GetLastModified::class];
         $result = $this->parse($input, $elementMap);
 
         self::assertEquals(

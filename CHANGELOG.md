@@ -1,6 +1,38 @@
 ChangeLog
 =========
 
+4.7.0 (2024-10-29)
+-------------------------
+* #1074 Add event to allow inspecting and changing multipart responses (@icewind1991)
+* #1529 fix typo in comment (@st3iny)
+* #1534 remove script for dead Google Code (@Rotzbua)
+* #1536 fix typos (@Rotzbua)
+* #1539 bump actions/cache from 3 to 4
+* #1540 bump codecov/codecov-action from 3 to 4
+* #1545 fix getNodeForPath caching (@icewind1991)
+* #1550 stop exporting php-cs-fixer config (@phil-davis)
+* #1559 Allow for custom iTipBroker (@SebastianKrupinski)
+* #1560 Fix PHP 8.4 deprecations (@cedric-anne)
+
+4.6.0 (2023-12-11)
+-------------------------
+* #1526: feat: add propFindUnfiltered public method to Client (@phil-davis)
+
+4.5.1 (2023-11-23)
+-------------------------
+* #1514: fix: restore autoPrefix property of Href (@phil-davis)
+
+4.5.0 (2023-11-14)
+-------------------------
+* #1488: fix: The WebDAV response element must only contain `propstat` OR `status` element(s) (@susnux)
+* #1481: docs: fix type definition for oldObject (@kesselb)
+* #1457: Fix PHPDoc to allow getChanges for sync to return null (@tcitworld)
+* #1446: declare addressDataProperties to avoid PHP 8.2 deprecation notice (@phil-davis)
+* #1432: Remove unused itipMessage property (@come-nc)
+* #1422: Align createFile signature with interface (@kesselb)
+* #1300: CalDAV/PropFilter: set empty array as default value for time-range (@simonspa)
+* #1060: Add INodeByPath interface to allow optimizing getNodeForPath (@icewind1991)
+
 4.4.0 (2022-06-27)
 -------------------------
 * #1396: Include "before" and "after" copy events (@jvillafanez)

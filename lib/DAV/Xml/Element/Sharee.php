@@ -112,7 +112,7 @@ class Sharee implements Element
      *
      * If you are opening new elements, you must also close them again.
      */
-    public function xmlSerialize(Writer $writer)
+    public function xmlSerialize(Writer $writer): void
     {
         $writer->write([
             new Href($this->href),
@@ -159,7 +159,7 @@ class Sharee implements Element
     {
         // Temporarily override configuration
         $reader->pushContext();
-        $reader->elementMap['{DAV:}share-access'] = 'Sabre\DAV\Xml\Property\ShareAccess';
+        $reader->elementMap['{DAV:}share-access'] = \Sabre\DAV\Xml\Property\ShareAccess::class;
         $reader->elementMap['{DAV:}prop'] = 'Sabre\Xml\Deserializer\keyValue';
 
         $elems = Deserializer\keyValue($reader, 'DAV:');

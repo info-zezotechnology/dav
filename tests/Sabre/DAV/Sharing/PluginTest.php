@@ -7,7 +7,7 @@ namespace Sabre\DAV\Sharing;
 use Sabre\DAV\Mock;
 use Sabre\DAV\Xml\Property;
 
-class PluginTest extends \Sabre\DAVServerTest
+class PluginTest extends \Sabre\AbstractDAVServerTestCase
 {
     protected $setupSharing = true;
     protected $setupACL = true;
@@ -129,7 +129,7 @@ class PluginTest extends \Sabre\DAVServerTest
 
     public function testBrowserPostActionNoHref()
     {
-        $this->expectException('Sabre\DAV\Exception\BadRequest');
+        $this->expectException(\Sabre\DAV\Exception\BadRequest::class);
         $this->sharingPlugin->browserPostAction(
             'shareable',
             'share',
@@ -141,7 +141,7 @@ class PluginTest extends \Sabre\DAVServerTest
 
     public function testBrowserPostActionNoAccess()
     {
-        $this->expectException('Sabre\DAV\Exception\BadRequest');
+        $this->expectException(\Sabre\DAV\Exception\BadRequest::class);
         $this->sharingPlugin->browserPostAction(
             'shareable',
             'share',
@@ -153,7 +153,7 @@ class PluginTest extends \Sabre\DAVServerTest
 
     public function testBrowserPostActionBadAccess()
     {
-        $this->expectException('Sabre\DAV\Exception\BadRequest');
+        $this->expectException(\Sabre\DAV\Exception\BadRequest::class);
         $this->sharingPlugin->browserPostAction(
             'shareable',
             'share',
@@ -166,7 +166,7 @@ class PluginTest extends \Sabre\DAVServerTest
 
     public function testBrowserPostActionAccessDenied()
     {
-        $this->expectException('Sabre\DAV\Exception\Forbidden');
+        $this->expectException(\Sabre\DAV\Exception\Forbidden::class);
         $this->aclPlugin->setDefaultAcl([]);
         $this->sharingPlugin->browserPostAction(
             'shareable',

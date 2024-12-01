@@ -7,7 +7,7 @@ namespace Sabre\CalDAV\Schedule;
 use Sabre\HTTP\Request;
 use Sabre\VObject;
 
-class DeliverNewEventTest extends \Sabre\DAVServerTest
+class DeliverNewEventTest extends \Sabre\AbstractDAVServerTestCase
 {
     public $setupCalDAV = true;
     public $setupCalDAVScheduling = true;
@@ -77,7 +77,7 @@ ICS
         self::assertEquals(1, count($messages));
         $message = $messages[0];
 
-        self::assertInstanceOf('\Sabre\VObject\ITip\Message', $message);
+        self::assertInstanceOf(\Sabre\VObject\ITip\Message::class, $message);
         self::assertEquals('mailto:user2.sabredav@sabredav.org', $message->recipient);
         self::assertEquals('Roxy Kesh', $message->recipientName);
         self::assertEquals('mailto:user1.sabredav@sabredav.org', $message->sender);

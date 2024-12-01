@@ -27,9 +27,6 @@ class SchedulingObjectTest extends \PHPUnit\Framework\TestCase
 
     public function setup(): void
     {
-        if (!SABRE_HASSQLITE) {
-            $this->markTestSkipped('SQLite driver is not available');
-        }
         $this->backend = new Backend\MockScheduling();
 
         $this->data = <<<ICS
@@ -93,7 +90,7 @@ ICS;
      */
     public function testPut()
     {
-        $this->expectException('Sabre\DAV\Exception\MethodNotAllowed');
+        $this->expectException(\Sabre\DAV\Exception\MethodNotAllowed::class);
         $children = $this->inbox->getChildren();
         self::assertTrue($children[0] instanceof SchedulingObject);
 
@@ -214,7 +211,7 @@ ICS;
 
     public function testSetACL()
     {
-        $this->expectException('Sabre\DAV\Exception\Forbidden');
+        $this->expectException(\Sabre\DAV\Exception\Forbidden::class);
         $children = $this->inbox->getChildren();
         self::assertTrue($children[0] instanceof SchedulingObject);
 

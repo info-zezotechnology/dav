@@ -22,7 +22,7 @@ class HomeCollectionTest extends \PHPUnit\Framework\TestCase
     {
         $principalBackend = new PrincipalBackend();
 
-        $this->path = SABRE_TEMPDIR.'/home';
+        $this->path = \Sabre\TestUtil::SABRE_TEMPDIR.'/home';
 
         $this->sut = new HomeCollection($principalBackend, $this->path);
         $this->sut->collectionName = $this->name;
@@ -44,7 +44,7 @@ class HomeCollectionTest extends \PHPUnit\Framework\TestCase
     public function testGetChild()
     {
         $child = $this->sut->getChild('user1');
-        self::assertInstanceOf('Sabre\\DAVACL\\FS\\Collection', $child);
+        self::assertInstanceOf(\Sabre\DAVACL\FS\Collection::class, $child);
         self::assertEquals('user1', $child->getName());
 
         $owner = 'principals/user1';
@@ -92,7 +92,7 @@ class HomeCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function testSetAcl()
     {
-        $this->expectException('Sabre\DAV\Exception\Forbidden');
+        $this->expectException(\Sabre\DAV\Exception\Forbidden::class);
         $this->sut->setACL([]);
     }
 

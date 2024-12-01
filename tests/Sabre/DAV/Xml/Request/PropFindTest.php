@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Sabre\DAV\Xml\Request;
 
-use Sabre\DAV\Xml\XmlTest;
+use Sabre\DAV\Xml\AbstractXmlTestCase;
 
-class PropFindTest extends XmlTest
+class PropFindTest extends AbstractXmlTestCase
 {
     public function testDeserializeProp()
     {
@@ -18,7 +18,7 @@ class PropFindTest extends XmlTest
 </d:root>
 ';
 
-        $result = $this->parse($xml, ['{DAV:}root' => 'Sabre\\DAV\\Xml\\Request\PropFind']);
+        $result = $this->parse($xml, ['{DAV:}root' => \Sabre\DAV\Xml\Request\PropFind::class]);
 
         $propFind = new PropFind();
         $propFind->properties = ['{DAV:}hello'];
@@ -34,7 +34,7 @@ class PropFindTest extends XmlTest
 </d:root>
 ';
 
-        $result = $this->parse($xml, ['{DAV:}root' => 'Sabre\\DAV\\Xml\\Request\PropFind']);
+        $result = $this->parse($xml, ['{DAV:}root' => \Sabre\DAV\Xml\Request\PropFind::class]);
 
         $propFind = new PropFind();
         $propFind->allProp = true;

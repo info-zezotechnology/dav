@@ -7,12 +7,12 @@ namespace Sabre\CardDAV\Xml\Property;
 use Sabre\CardDAV;
 use Sabre\DAV;
 
-class SupportedCollationSetTest extends DAV\Xml\XmlTest
+class SupportedCollationSetTest extends DAV\Xml\AbstractXmlTestCase
 {
     public function testSimple()
     {
         $property = new SupportedCollationSet();
-        self::assertInstanceOf('Sabre\CardDAV\Xml\Property\SupportedCollationSet', $property);
+        self::assertInstanceOf(\Sabre\CardDAV\Xml\Property\SupportedCollationSet::class, $property);
     }
 
     /**

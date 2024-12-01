@@ -7,7 +7,7 @@ namespace Sabre\CalDAV\Xml\Property;
 use Sabre\CalDAV;
 use Sabre\DAV;
 
-class ScheduleCalendarTranspTest extends DAV\Xml\XmlTest
+class ScheduleCalendarTranspTest extends DAV\Xml\AbstractXmlTestCase
 {
     public function setup(): void
     {
@@ -76,7 +76,7 @@ XML;
 
         $result = $this->parse(
             $xml,
-            ['{DAV:}root' => 'Sabre\\CalDAV\\Xml\\Property\\ScheduleCalendarTransp']
+            ['{DAV:}root' => \Sabre\CalDAV\Xml\Property\ScheduleCalendarTransp::class]
         );
 
         self::assertEquals(
@@ -99,7 +99,7 @@ XML;
 
         $result = $this->parse(
             $xml,
-            ['{DAV:}root' => 'Sabre\\CalDAV\\Xml\\Property\\ScheduleCalendarTransp']
+            ['{DAV:}root' => \Sabre\CalDAV\Xml\Property\ScheduleCalendarTransp::class]
         );
 
         self::assertEquals(

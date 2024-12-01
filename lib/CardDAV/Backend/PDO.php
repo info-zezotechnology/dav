@@ -73,7 +73,7 @@ class PDO extends AbstractBackend implements SyncSupport
                 '{DAV:}displayname' => $row['displayname'],
                 '{'.CardDAV\Plugin::NS_CARDDAV.'}addressbook-description' => $row['description'],
                 '{http://calendarserver.org/ns/}getctag' => $row['synctoken'],
-                '{http://sabredav.org/ns}sync-token' => $row['synctoken'] ? $row['synctoken'] : '0',
+                '{http://sabredav.org/ns}sync-token' => $row['synctoken'] ?: '0',
             ];
         }
 
@@ -205,7 +205,7 @@ class PDO extends AbstractBackend implements SyncSupport
      *   * size - The size of the card in bytes.
      *
      * If these last two properties are provided, less time will be spent
-     * calculating them. If they are specified, you can also ommit carddata.
+     * calculating them. If they are specified, you can also omit carddata.
      * This may speed up certain requests, especially with large cards.
      *
      * @param mixed $addressbookId

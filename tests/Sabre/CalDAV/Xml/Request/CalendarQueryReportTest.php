@@ -6,12 +6,12 @@ namespace Sabre\CalDAV\Xml\Request;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Sabre\DAV\Xml\XmlTest;
+use Sabre\DAV\Xml\AbstractXmlTestCase;
 
-class CalendarQueryReportTest extends XmlTest
+class CalendarQueryReportTest extends AbstractXmlTestCase
 {
     protected $elementMap = [
-        '{urn:ietf:params:xml:ns:caldav}calendar-query' => 'Sabre\\CalDAV\\Xml\\Request\CalendarQueryReport',
+        '{urn:ietf:params:xml:ns:caldav}calendar-query' => \Sabre\CalDAV\Xml\Request\CalendarQueryReport::class,
     ];
 
     public function testDeserialize()
@@ -49,7 +49,7 @@ XML;
 
     public function testDeserializeNoFilter()
     {
-        $this->expectException('Sabre\DAV\Exception\BadRequest');
+        $this->expectException(\Sabre\DAV\Exception\BadRequest::class);
         $xml = <<<XML
 <?xml version="1.0"?>
 <c:calendar-query xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav">
@@ -137,14 +137,14 @@ XML;
                         [
                             'name' => 'UID',
                             'is-not-defined' => false,
-                            'time-range' => false,
+                            'time-range' => [],
                             'text-match' => null,
                             'param-filters' => [],
                         ],
                         [
                             'name' => 'X-PROP',
                             'is-not-defined' => false,
-                            'time-range' => false,
+                            'time-range' => [],
                             'text-match' => null,
                             'param-filters' => [
                                 [
@@ -171,7 +171,7 @@ XML;
                         [
                             'name' => 'X-PROP2',
                             'is-not-defined' => true,
-                            'time-range' => false,
+                            'time-range' => [],
                             'text-match' => null,
                             'param-filters' => [],
                         ],
@@ -188,7 +188,7 @@ XML;
                         [
                             'name' => 'X-PROP4',
                             'is-not-defined' => false,
-                            'time-range' => false,
+                            'time-range' => [],
                             'text-match' => [
                                 'negate-condition' => false,
                                 'collation' => 'i;ascii-casemap',
@@ -215,7 +215,7 @@ XML;
 
     public function testDeserializeDoubleTopCompFilter()
     {
-        $this->expectException('Sabre\DAV\Exception\BadRequest');
+        $this->expectException(\Sabre\DAV\Exception\BadRequest::class);
         $xml = <<<XML
 <?xml version="1.0"?>
 <c:calendar-query xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav">
@@ -237,7 +237,7 @@ XML;
 
     public function testDeserializeMissingExpandEnd()
     {
-        $this->expectException('Sabre\DAV\Exception\BadRequest');
+        $this->expectException(\Sabre\DAV\Exception\BadRequest::class);
         $xml = <<<XML
 <?xml version="1.0"?>
 <c:calendar-query xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav">
@@ -258,7 +258,7 @@ XML;
 
     public function testDeserializeExpandEndBeforeStart()
     {
-        $this->expectException('Sabre\DAV\Exception\BadRequest');
+        $this->expectException(\Sabre\DAV\Exception\BadRequest::class);
         $xml = <<<XML
 <?xml version="1.0"?>
 <c:calendar-query xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav">
@@ -279,7 +279,7 @@ XML;
 
     public function testDeserializeTimeRangeOnVCALENDAR()
     {
-        $this->expectException('Sabre\DAV\Exception\BadRequest');
+        $this->expectException(\Sabre\DAV\Exception\BadRequest::class);
         $xml = <<<XML
 <?xml version="1.0"?>
 <c:calendar-query xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav">
@@ -300,7 +300,7 @@ XML;
 
     public function testDeserializeTimeRangeEndBeforeStart()
     {
-        $this->expectException('Sabre\DAV\Exception\BadRequest');
+        $this->expectException(\Sabre\DAV\Exception\BadRequest::class);
         $xml = <<<XML
 <?xml version="1.0"?>
 <c:calendar-query xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav">
@@ -323,7 +323,7 @@ XML;
 
     public function testDeserializeTimeRangePropEndBeforeStart()
     {
-        $this->expectException('Sabre\DAV\Exception\BadRequest');
+        $this->expectException(\Sabre\DAV\Exception\BadRequest::class);
         $xml = <<<XML
 <?xml version="1.0"?>
 <c:calendar-query xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav">

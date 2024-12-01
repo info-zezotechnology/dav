@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Sabre\DAVACL\Xml\Request;
 
-class AclPrincipalPropSetReportTest extends \Sabre\DAV\Xml\XmlTest
+class AclPrincipalPropSetReportTest extends \Sabre\DAV\Xml\AbstractXmlTestCase
 {
     protected $elementMap = [
-        '{DAV:}acl-principal-prop-set' => 'Sabre\DAVACL\Xml\Request\AclPrincipalPropSetReport',
+        '{DAV:}acl-principal-prop-set' => \Sabre\DAVACL\Xml\Request\AclPrincipalPropSetReport::class,
     ];
 
     public function testDeserialize()

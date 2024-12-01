@@ -6,7 +6,7 @@ namespace Sabre\CardDAV;
 
 use Sabre\HTTP;
 
-class VCFExportTest extends \Sabre\DAVServerTest
+class VCFExportTest extends \Sabre\AbstractDAVServerTestCase
 {
     protected $setupCardDAV = true;
     protected $autoLogin = 'user1';
@@ -40,7 +40,7 @@ class VCFExportTest extends \Sabre\DAVServerTest
     public function testSimple()
     {
         $plugin = $this->server->getPlugin('vcf-export');
-        self::assertInstanceOf('Sabre\\CardDAV\\VCFExportPlugin', $plugin);
+        self::assertInstanceOf(\Sabre\CardDAV\VCFExportPlugin::class, $plugin);
 
         self::assertEquals(
             'vcf-export',

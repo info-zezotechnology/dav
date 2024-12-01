@@ -9,7 +9,7 @@ use Sabre\DAV;
 use Sabre\DAV\Sharing\Plugin as SP;
 use Sabre\DAV\Xml\Element\Sharee;
 
-class InviteTest extends DAV\Xml\XmlTest
+class InviteTest extends DAV\Xml\AbstractXmlTestCase
 {
     public function setup(): void
     {
@@ -20,7 +20,7 @@ class InviteTest extends DAV\Xml\XmlTest
     public function testSimple()
     {
         $invite = new Invite([]);
-        self::assertInstanceOf('Sabre\CalDAV\Xml\Property\Invite', $invite);
+        self::assertInstanceOf(\Sabre\CalDAV\Xml\Property\Invite::class, $invite);
         self::assertEquals([], $invite->getValue());
     }
 

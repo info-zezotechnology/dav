@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Sabre\CalDAV\Xml\Request;
 
 use Sabre\DAV;
-use Sabre\DAV\Xml\XmlTest;
+use Sabre\DAV\Xml\AbstractXmlTestCase;
 
-class InviteReplyTest extends XmlTest
+class InviteReplyTest extends AbstractXmlTestCase
 {
     protected $elementMap = [
-        '{http://calendarserver.org/ns/}invite-reply' => 'Sabre\\CalDAV\\Xml\\Request\\InviteReply',
+        '{http://calendarserver.org/ns/}invite-reply' => \Sabre\CalDAV\Xml\Request\InviteReply::class,
     ];
 
     public function testDeserialize()
@@ -59,7 +59,7 @@ XML;
 
     public function testDeserializeNoHostUrl()
     {
-        $this->expectException('Sabre\DAV\Exception\BadRequest');
+        $this->expectException(\Sabre\DAV\Exception\BadRequest::class);
         $xml = <<<XML
 <?xml version="1.0"?>
 <cs:invite-reply xmlns:cs="http://calendarserver.org/ns/" xmlns:d="DAV:">
